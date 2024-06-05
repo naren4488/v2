@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ChildComponent from "./ChildComponent";
+import ChildComponent, { UserType } from "./ChildComponent";
 import { poppins } from "../fonts";
+import Image from "next/image";
 
 type Props = {};
 
@@ -25,6 +26,7 @@ const mealsArr = [
 export default function ParentComponent({}: Props) {
   const [currentMeal, setCurrentMeal] = useState(mealsArr[0]);
   const [mealData, setMealData] = useState<MealType>();
+  const [userData, setUserData] = useState<UserType>();
 
   const getMealInfo = async (mealName: String): Promise<MealType> => {
     const res = await fetch(
@@ -56,16 +58,53 @@ export default function ParentComponent({}: Props) {
   }, [currentMeal]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 border rounded p-4">
       <h2 className={`${poppins.variable} font-poppins text-xl`}>
         Parent Component - To display github users from child component
       </h2>
-      <div className="">user card</div>
+      {userData ? (
+        <div className="bg-blue-100 dark:bg-blue-600 p-4 rounded-md ">
+          <h2
+            className={`${poppins.variable} font-poppins text-xl text-center`}
+          >
+            Github User Information
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-5">
+            <div className="flex flex-col gap-4">
+              <p>
+                <span className=" font-semibold">Username :</span>{" "}
+                {userData.login}
+              </p>
+              <p>
+                <span className=" font-semibold">Name :</span> {userData.name}
+              </p>
+              <p>
+                <span className=" font-semibold">Bio :</span> {userData.bio}
+              </p>
+              <a className="" target="_blank" href={userData.html_url}>
+                Visit Github
+              </a>
+            </div>
+            <div className="w-full">
+              <Image
+                src={userData.avatar_url}
+                width={350}
+                height={350}
+                alt="meal image"
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        <p className="bg-blue-100 dark:bg-blue-600 p-4 rounded-md">
+          Loading...
+        </p>
+      )}
       <p>
         Load meals info by selecting any of below options and view the meal data
         in child component
       </p>
-      <div className="flex gap-5 max-sm:flex-col">
+      <div className="flex gap-4 max-sm:flex-col">
         {mealsArr.map((meal, idx) => (
           <button
             className={`border rounded  p-1   ${
@@ -78,7 +117,7 @@ export default function ParentComponent({}: Props) {
           </button>
         ))}
       </div>
-      <ChildComponent mealData={mealData} />
+      <ChildComponent mealData={mealData} setUserData={setUserData} />
     </div>
   );
 }

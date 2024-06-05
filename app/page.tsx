@@ -3,7 +3,7 @@ import { poppins, roboto } from "./fonts";
 
 export default function Home() {
   return (
-    <main className="p-6">
+    <main className="p-6 flex flex-col gap-10">
       <h1 className={`${roboto.variable} font-roboto text-4xl text-center`}>
         Title Of The Page
       </h1>
