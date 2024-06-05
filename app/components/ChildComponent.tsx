@@ -17,7 +17,7 @@ export type UserType = {
   bio: string;
 };
 
-const userArr = ["naren4488", "mojombo", "defunkt", "wycats"];
+const userArr = ["naren4488", "brynary", "defunkt", "wycats"];
 
 export default function ChildComponent({ mealData, setUserData }: Props) {
   const [currentUser, setCurrentUser] = useState(userArr[0]);
@@ -44,10 +44,11 @@ export default function ChildComponent({ mealData, setUserData }: Props) {
       const userData = await getUserInfo(currentUser);
       setUserData(userData);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   return (
-    <div className="border shadow rounded p-4 mt-4 flex flex-col gap-5">
+    <div className="border shadow rounded p-4 mt-10 flex flex-col gap-5">
       <h2 className={`${poppins.variable} font-poppins text-xl`}>
         Child Component - To display meal from parent component
       </h2>

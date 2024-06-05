@@ -81,7 +81,11 @@ export default function ParentComponent({}: Props) {
               <p>
                 <span className=" font-semibold">Bio :</span> {userData.bio}
               </p>
-              <a className="" target="_blank" href={userData.html_url}>
+              <a
+                className=" text-blue-600 underline dark:text-gray-200"
+                target="_blank"
+                href={userData.html_url}
+              >
                 Visit Github
               </a>
             </div>
